@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5cc9eb7c8ccbd7b1c574a06f9fdb840",
+    "content-hash": "5bdcd76a3d5211a77a37679c02e6cf48",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -831,6 +831,47 @@
                 "laravel"
             ],
             "time": "2020-09-26T21:28:24+00:00"
+        },
+        {
+            "name": "laravel-lang/lang",
+            "version": "7.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Laravel-Lang/lang.git",
+                "reference": "7bed46cb9befef29660fb20f921a5e7b41aeaaa3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Laravel-Lang/lang/zipball/7bed46cb9befef29660fb20f921a5e7b41aeaaa3",
+                "reference": "7bed46cb9befef29660fb20f921a5e7b41aeaaa3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*"
+            },
+            "suggest": {
+                "andrey-helldar/laravel-lang-publisher": "Easy installation and update of translation files for your project",
+                "arcanedev/laravel-lang": "Translations manager and checker for Laravel 5",
+                "overtrue/laravel-lang": "Command to add languages in your project"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Laravel-Lang Team"
+                }
+            ],
+            "description": "Languages for Laravel",
+            "keywords": [
+                "lang",
+                "languages",
+                "laravel",
+                "lpm"
+            ],
+            "time": "2020-10-02T16:55:34+00:00"
         },
         {
             "name": "laravel/framework",
