@@ -14,9 +14,9 @@ return [
     |
     */
 
-    'title' => 'Repository Pattern',
-    'title_prefix' => 'Martins',
-    'title_postfix' => 'Projetos Laravel',
+    'title' => 'AdminLTE 3',
+    'title_prefix' => '',
+    'title_postfix' => '',
 
     /*
     |--------------------------------------------------------------------------
