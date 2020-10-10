@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Repository</b>Pattern',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -232,23 +232,23 @@ return [
 
     'menu' => [
         [
-            'text' => 'search',
+            'text' => 'Pesquisar',
             'search' => true,
             'topnav' => true,
         ],
         [
-            'text' => 'blog',
+            'text' => 'Categorias',
             'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            #'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
+            'text'        => 'Produtos',
+            'url'         => 'admin/products',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
+            //'label'       => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
+        /*['header' => 'account_settings'],
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
@@ -312,7 +312,7 @@ return [
             'text'       => 'information',
             'icon_color' => 'cyan',
             'url'        => '#',
-        ],
+        ],*/
     ],
 
     /*
@@ -350,7 +350,7 @@ return [
     */
 
     'plugins' => [
-        'Datatables' => [
+        /*'Datatables' => [
             'active' => false,
             'files' => [
                 [
@@ -419,7 +419,7 @@ return [
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
                 ],
             ],
-        ],
+        ],*/
     ],
 
     /*
