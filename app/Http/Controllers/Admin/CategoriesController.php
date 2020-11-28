@@ -38,6 +38,37 @@ class CategoriesController extends Controller
     }
 
     /**
+     * Filtro avançado de categorias
+     */
+
+    public function searchCategory(Request $request)
+    {
+        try {
+            $data = $request->all();
+        $categories = DB::table('categories')
+            ->where(function ($query) use ($data) {
+
+                if (isset($data['title'])) {
+                    $query->where('title', $data['title']);
+                }
+
+                if(isset($data['url'])){
+                    $query->where('url', $data['url']);
+                }
+
+                if(isset($data['description'])){
+                    $query->where('description', 'LIKE',"%{$data['description']}%");
+                }
+            })->orderBy('id','DESC')->paginate(10);
+
+            return response()->json($categories, 200);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 500);
+        }
+
+    }
+
+    /**
      * cadastrando categorias
      */
 

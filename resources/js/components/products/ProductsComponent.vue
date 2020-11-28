@@ -20,44 +20,57 @@
     >
       <thead>
         <tr>
-          <th>Título</th>
-          <th>URL</th>
-          <th>Actions</th>
+          <th>Nome</th>
+          <th>Preço</th>
+          <th>Imagem</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="category in categories" :key="category.id">
-          <td>{{ category.title }}</td>
-
-          <td>{{ category.url }}</td>
+        <tr v-for="product in products" :key="product.id">
+          <td>{{ product.name }}</td>
+          <td>{{ money(product.price, 1) }}</td>
+          <td style="padding: 0">
+            <p class="text-center" style="margin-bottom: 0">
+              <img
+                src="/vendor/adminlte/dist/img/AdminLTELogo.png"
+                alt=""
+                width="55px"
+              />
+            </p>
+          </td>
           <td class="btn-group d-flex flex-row justify-content-center">
             <button
               class="btn btn-primary"
               @click="
                 editarDados(
-                  category.title,
-                  category.url,
-                  category.description,
-                  category.id
+                  product.name,
+                  product.url,
+                  product.description,
+                  product.id,
+                  money(product.price, 1),
+                  product.image
                 )
               "
             >
-              <i class="far fa-edit"></i></button
-            >
+              <i class="far fa-edit"></i>
+            </button>
             <button
               class="btn btn-success"
               @click="
                 editarDados(
-                  category.title,
-                  category.url,
-                  category.description,
-                  category.id
+                  product.name,
+                  product.url,
+                  product.description,
+                  product.id,
+                  money(product.price, 1),
+                  product.image
                 )
               "
             >
-              <i class="far fa-eye" style="color:white"></i>
+              <i class="far fa-eye" style="color: white"></i>
             </button>
-            <button class="btn btn-danger" @click="deletar(category.id)">
+            <button class="btn btn-danger" @click="deletar(product.id)">
               <i class="far fa-trash-alt"></i>
             </button>
           </td>
@@ -65,9 +78,10 @@
       </tbody>
       <tfoot>
         <tr>
-          <th>Título</th>
-          <th>URL</th>
-          <th>Actions</th>
+          <th>Nome</th>
+          <th>Preço</th>
+          <th>Imagem</th>
+          <th>Ações</th>
         </tr>
       </tfoot>
     </table>
@@ -94,12 +108,12 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="title" class="col-form-label">Título:</label>
+                    <label for="title" class="col-form-label">Nome:</label>
                     <input
                       type="text"
                       class="form-control"
                       id="title"
-                      v-model="title"
+                      v-model="name"
                     />
                   </div>
                 </div>
@@ -116,6 +130,32 @@
                 </div>
               </div>
 
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="description" class="col-form-label"
+                      >Categorias:</label
+                    >
+                    <select class="form-control" v-model="category_selected">
+                      <option disabled selected>Escolha uma categoria</option>
+                      <option v-for="product in products" :key="product.id" v-bind:value="product.category.id">
+                        {{ product.category.title }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="price" class="col-form-label">Preço:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="price"
+                      v-model="price"
+                    />
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
@@ -175,11 +215,13 @@ var localHost = "http://127.0.0.1:8000";
 export default {
   data() {
     return {
-      categories: [],
+      products: [],
       cadastro: true,
-      title: "",
+      category_selected:"",
+      name: "",
       url: "",
       id: "",
+      price: "",
       description: "",
       options: {
         year: "numeric",
@@ -211,9 +253,9 @@ export default {
     },
     listCategories: function () {
       window.axios
-        .get(`${localHost}/api/v1/categories`)
+        .get(`${localHost}/api/v1/products`)
         .then((res) => {
-          this.categories = res.data;
+          this.products = res.data;
           setTimeout(() => {
             this.loadTable();
           }, 100);
@@ -229,14 +271,19 @@ export default {
     },
     createCategory() {
       this.sendData = new FormData();
-      this.title == "" ? "" : this.sendData.append("title", this.title);
+      this.name == "" ? "" : this.sendData.append("name", this.name);
+      this.price == "" ? "" : this.sendData.append("price", this.price);
+      this.image == "" ? "" : this.sendData.append("image", this.image);
       this.url == "" ? "" : this.sendData.append("url", this.url);
+      this.category_selected == ""
+        ? ""
+        : this.sendData.append("category_id", this.category_selected);
       this.description == ""
         ? ""
         : this.sendData.append("description", this.description);
 
       window.axios
-        .post(`${localHost}/api/v1/categories`, this.sendData)
+        .post(`${localHost}/api/v1/products`, this.sendData)
         .then((res) => {
           Vue.$toast.open({
             message: res.data.msg,
@@ -259,7 +306,7 @@ export default {
     },
     deletar(id) {
       window.axios
-        .delete(`${localHost}/api/v1/categories/${id}`, this.sendData)
+        .delete(`${localHost}/api/v1/products/${id}`, this.sendData)
         .then((res) => {
           Vue.$toast.open({
             message: "Categoria removida!",
@@ -280,10 +327,12 @@ export default {
     },
     atualizar() {
       window.axios
-        .put(`${localHost}/api/v1/categories/${this.id}`, {
-          title: this.title,
+        .put(`${localHost}/api/v1/products/${this.id}`, {
+          name: this.name,
           url: this.url,
           description: this.description,
+          price: this.price,
+          image: this.image,
         })
         .then((res) => {
           Vue.$toast.open({
@@ -308,18 +357,20 @@ export default {
       $(".close").trigger("click");
     },
     limparModal() {
-      this.title = "";
+      this.name = "";
       this.url = "";
       this.description = "";
+      this.price = "";
     },
-    titleModal(title) {
-      $(".modal-title").text(title);
+    titleModal(name) {
+      $(".modal-title").text(name);
     },
-    editarDados(title, url, description, id) {
-      this.title = title;
+    editarDados(name, url, description, id, price) {
+      this.name = name;
       this.url = url;
       this.description = description;
       this.id = id;
+      this.price = price;
       this.cadastro = false;
       this.titleModal("Editar dados");
       $("#myModal").modal();
@@ -345,11 +396,21 @@ export default {
         async: true,
       });
     },
-    money: function (value) {
-      parseFloat(value.toFixed(2)).toLocaleString("pt-BR", {
-        currency: "BRL",
-        minimumFractionDigits: 2,
-      });
+    money: function (value, a = 0) {
+      if (a == 0) {
+        var str = value;
+        str = str.replace(",", "");
+        var res = str.length - 2;
+        res = str.substr(1, 2);
+        res =
+          str.substr(0, str.length - 2) + "." + str.substr(str.length - 2, 2);
+      } else {
+        var res = value.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+      }
+      return res;
     },
   },
 };

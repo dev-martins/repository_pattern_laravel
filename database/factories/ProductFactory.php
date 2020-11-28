@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Category;
+use App\Models\Product;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -17,11 +17,13 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Category::class, function (Faker $faker) {
+$factory->define(Product::class, function (Faker $faker) {
     return [
-        'title' => $faker->name,
-        'url'   => $faker->unique()->url,
-        'image'   => $faker->imageUrl($width = 200, $height = 200),
+        'category_id'   => factory(App\Models\Category::class),
+        'name'          => $faker->unique()->name,
+        'price'         => $faker->randomDigit,
+        'image'         => $faker->unique()->url,
+        'url'           => $faker->unique()->url,
         'description'   => $faker->paragraph,
     ];
 });

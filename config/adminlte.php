@@ -232,8 +232,8 @@ return [
 
     'menu' => [
         [
-            'text' => 'Pesquisar',
-            'search' => true,
+            'text' => 'Pesquisar Categorias',
+            'search' => false,
             'topnav' => true,
         ],
         [

@@ -17,8 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
@@ -27,6 +25,6 @@ Route::get('/home', function() {
     return view('vendor.adminlte.admin.categories');
 })->name('home')->middleware('auth');
 
-Route::get('/categories', function() {
-    return view('admin.categories');
-})->name('categories')->middleware('auth');
+Route::get('/admin/products', function() {
+    return view('vendor.adminlte.admin.products');
+})->name('products')->middleware('auth');

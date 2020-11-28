@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Category;
+use App\Models\Product;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,5 +14,6 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UserSeeder::class);
         factory(Category::class, 100)->create();
+        factory(Product::class, 100)->create();
     }
 }

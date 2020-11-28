@@ -24,6 +24,7 @@ import 'vue-toast-notification/dist/theme-default.css';
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 //Vue.component('datetime', Datetime);
 Vue.component('categories-list', require('./components/categories/CategoriesComponent.vue').default);
+Vue.component('products-list', require('./components/products/ProductsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
