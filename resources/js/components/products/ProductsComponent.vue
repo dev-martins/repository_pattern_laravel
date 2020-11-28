@@ -134,7 +134,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="description" class="col-form-label"
-                      >Categoria:</label
+                      >Categorias:</label
                     >
                     <select class="form-control" v-model="category_selected">
                       <option disabled selected>Escolha uma categoria</option>
